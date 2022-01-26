@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Details', {
+   up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('Details', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,15 +10,6 @@ module.exports = {
       },
       status: {
         type: Sequelize.BOOLEAN
-      },
-      ServiceId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Services',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
       },
       requirement: {
         type: Sequelize.TEXT
@@ -39,7 +30,7 @@ module.exports = {
       }
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Details');
+   down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('Details');
   }
 };

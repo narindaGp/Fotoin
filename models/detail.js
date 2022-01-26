@@ -16,10 +16,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Detail.init({
     status: DataTypes.BOOLEAN,
-    ServiceId: DataTypes.INTEGER,
     requirement: DataTypes.TEXT,
     availibility: DataTypes.STRING,
-    timeOfContract: DataTypes.STRING
+    timeOfContract: DataTypes.STRING,
+    ServiceId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Detail',

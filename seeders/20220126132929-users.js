@@ -1,7 +1,7 @@
 'use strict';
-
+const fs = require('fs')
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  up: (queryInterface, Sequelize) => {
     /**
      * Add seed commands here.
      *
@@ -11,14 +11,21 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+    let data = JSON.parse(fs.readFileSync('./user.json','utf-8'))
+    data.forEach(element => {
+      element.createdAt = new Date()
+      element.updatedAt = new Date()
+    });
+    return queryInterface.bulkInsert('Users', data ,{})
   },
 
-  async down (queryInterface, Sequelize) {
+  down: (queryInterface, Sequelize) => {
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    return queryInterface.bulkDelete('Users', null, {});
   }
 };
