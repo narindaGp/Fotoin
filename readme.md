@@ -15,3 +15,13 @@ halaman
 
 /user/:id/edit -> edit service
 <!-- /service/:id/detail/:userId -->
+
+
+setup model 
+
+npx sequelize-cli model:generate --name User --attributes username:string,email:string,password:string,role:string
+npx sequelize-cli model:generate --name Service --attributes name:string,description:text,price:integer,imageUrl:string
+npx sequelize-cli model:generate --name Detail --attributes status:boolean,requirement:text,availibility:string,timeOfContract:string
+
+npx sequelize-cli migration:create --name add-UserId-to-Services
+npx sequelize-cli migration:create --name add-ServiceId-to-Details
