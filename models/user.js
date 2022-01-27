@@ -15,6 +15,28 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Service)
     }
+    static getUsersByRole(role) {
+      let where = {}
+      if (role){
+        where ={
+          role: role
+        }
+      }
+      return new Promise((resolve, reject)=>{
+
+        User.findAll({
+          where,
+          order: [['name', 'ASC']]
+        })
+          .then(users => {
+            resolve(users)
+          })
+          .catch(err=>{
+            reject(err)
+          })
+      }) 
+
+    }
   }
   User.init({
     username: {

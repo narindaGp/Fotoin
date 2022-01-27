@@ -26,7 +26,9 @@ class Controller {
   }
 
   static getUsers(req, res){
-    User.findAll()
+    const { role } = req.query
+
+    User.getUsersByRole(role)
       .then(users=>{
         // res.send(users)
         res.render('usersNar', { users })
