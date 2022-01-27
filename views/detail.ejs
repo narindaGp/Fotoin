@@ -1,15 +1,17 @@
   <%- include('./partials/top.ejs') %>
   
-  <p>name: <%= temp.name %></p>
-  <p>avaliable: <%= data.status %></p>
-  <p>description: <%= temp.description %></p>
-  <p>image: <img src="<%= temp.imageUrl %>" alt=""></p>
-  <p>price: <%= temp.formatPrice() %></p>
-  <p>finish product minimal: <%= data.timeOfContract %> days</p>
-  <p>property thats avaliable: <%= data.requirement %></p>
+  <p>name: <%= serviceAvailable(data.name, data.Detail.status) %></p>
+  <p>avaliable: <%= data.Detail.status %></p>
+  <p>description: <%= data.description %></p>
+  <p>image: <img src="<%= data.imageUrl %>" alt=""></p>
+  <p>price: <%= data.formatPrice() %></p>
+  <p>finish product minimal: <%= data.Detail.timeOfContract %> days</p>
+  <p>property thats avaliable: <%= data.Detail.requirement %></p>
   <p>another image exmaple: </p>
-  <% data.Galleries.forEach(el => { %>
-    <img src="<%= el.name %>" alt="<%= el.alternate %>">
-  <% }) %>
+  <%= 'data.Detail.Galleries.forEach(el => {' %>
+    <img src="<%= 'el.name' %>" alt="<%= 'el.alternate' %>">
+  <%= '})' %>
+
+
 </body>
 </html>

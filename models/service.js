@@ -17,15 +17,43 @@ module.exports = (sequelize, DataTypes) => {
       return rupiah
     }
 
-    static search(word){
-      return Service.findAll({
-        where: {
+    static search(search){
+      let where = {}
+      if (search){
+        where ={
           name: {
-            [Op.iLike] : `%${word}%`
+            [Op.iLike] : `%${search}%`
           }
-        },
-        include:['Category']
-      })
+        }
+      }
+      return new Promise((resolve, reject)=>{
+        Service.findAll({
+          where,
+          include: ['Category']
+        })
+          .then(services=>{
+            resolve(services)
+          })
+          .catch(err=>{
+            reject(err)
+          })
+      }) 
+      
+    }
+    static serviceDetail(id){
+     
+      return new Promise((resolve, reject)=>{
+        Service.findByPk(+id, {
+          include: ['Detail', 'Category']
+        })
+          .then(services=>{
+            resolve(services)
+          })
+          .catch(err=>{
+            reject(err)
+          })
+      }) 
+      
     }
 
     static associate(models) {

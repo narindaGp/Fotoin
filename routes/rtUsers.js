@@ -9,6 +9,8 @@ router.get(`/:id/delete`, Controller.deleteUser)
 router.get('/:id/addService', Controller.getAddService);
 router.get('/:id/edit', Controller.getEditService);
 router.post('/:id/edit', Controller.postEditService);
+router.get('/:id/detail/delete', Controller.getDeleteService);
+router.get('/:id/add/galery', Controller.getEditService);
 // =======
 // router.get('/:id/detail/add', Controller.getAddDetail);
 // // router.post('/:id/detail/add', Controller.postAddDetail);

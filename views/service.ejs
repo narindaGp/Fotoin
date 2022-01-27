@@ -1,7 +1,8 @@
 
   <%- include('./partials/top.ejs') %>
-
-  <form class="d-flex input-group w-auto" action="/services" method="get">
+  <h1 class="m-5 text-center">Service List</h1>
+  <hr>
+  <form class="m-5 d-flex input-group w-auto" action="/services" method="get">
     <input
       type="search"
       class="form-control"
@@ -17,8 +18,8 @@
       Search
     </button>
   </form>
-
-  <table border="1">
+  <hr>
+  <table class="table mt-5">
     <tr>
       <th>Nama</th>
       <th>Image</th>
@@ -30,8 +31,8 @@
       <tr>
         <td><%= el.name %></td>
         <td><img src="<%= el.imageUrl %>" alt=""></td>
-        <td><%= 'el.formatPrice()' %></td>
-        <td><%= "el.Category.name "%></td>
+        <td><%= el.formatPrice() %></td>
+        <td><%= el.Category.name %></td>
         <td>
           <a href="/services/<%= el.id %>">detail</a>
         </td>
