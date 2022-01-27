@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/', Controller.showService);
 router.get('/:id', Controller.getDetail);
+router.post('/:id/add', Controller.postAddService);
 // router.get('/details', Controller.getDetail);
 
 module.exports = router;
