@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Service extends Model {
     /**
@@ -14,6 +15,17 @@ module.exports = (sequelize, DataTypes) => {
       const convert = format.match(/\d{1,3}/g);
       const rupiah = 'Rp. ' + convert.join('.').split('').reverse().join('') + ',00'
       return rupiah
+    }
+
+    static search(word){
+      return Service.findAll({
+        where: {
+          name: {
+            [Op.iLike] : `%${word}%`
+          }
+        },
+        include:['Category']
+      })
     }
 
     static associate(models) {

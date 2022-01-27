@@ -2,16 +2,27 @@ const { User, Service, Detail, Category, Gallery } = require('../models')
 
 class Controller {
   static showService(req, res) {
-    Service.findAll({
-        include:[Category]
-      })
-      .then(data => {
-        res.render('service', { data })
-      })
-      .catch(err => {
-        // console.log(err)
-        res.send(err)
-      })
+
+    let {search} = req.query
+    if(search){
+      Service.search(search)
+              .then(data => {
+                res.render('service', { data })
+              })
+              .catch(err => {
+                res.send(err)
+              })
+    } else {
+      Service.findAll({
+          include:[Category]
+        })
+        .then(data => {
+          res.render('service', { data })
+        })
+        .catch(err => {
+          res.send(err)
+        })
+    }
   }
 
 
