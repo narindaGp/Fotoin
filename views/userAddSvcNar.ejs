@@ -16,7 +16,7 @@
       <!-- <div class="row"> -->
         <form class="row" action="/users/<%= user.id %>/addService" method="post">
   
-          <div class="col-8">
+          <div class="col-10">
             <label for="" class="form-label">Name</label>
             <input type="text" class="form-control" name="name">
             <label for="" class="form-label">Description</label>
@@ -32,6 +32,19 @@
               <option value="2">Videography</option>
               <option value="3">Illustrator</option>
             </select>
+            <hr>
+            <h2>detail</h2>
+            <hr>
+            <label for="" class="form-label">Status</label>
+            <select name="status" id="">
+              <option value="true">available</option>
+              <option value="false">unavailable</option>
+            </select>
+            <label for="" class="form-label">Requirement</label>
+            <textarea name="requirement" class="form-control" id="" cols="30" rows="10"></textarea>
+            <label for="" class="form-label">Estimate project duration</label>
+            <input type="number" class="form-control" name="timeOfContract">
+            
           </div>
          
             
