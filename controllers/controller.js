@@ -209,6 +209,21 @@ class Controller {
 //       .then(service=>{
 //         res.send(service)
 //         // res.render('usersDetailNar', {user, services: []})
+
+  static deleteUser(req, res){
+    let { id } = req.params
+    User.destroy({
+      where: {
+        id: +id
+      }
+    })
+    .then(_ => {
+      res.redirect(`/users`)
+    })
+    .catch(err => {
+      res.send(err)
+    })
+  }
 }
 
 module.exports = Controller
