@@ -12,6 +12,7 @@ router.get('/:id/addService', Controller.getAddService);
 router.get('/:id/edit', Controller.getEditService);
 router.post('/:id/edit', Controller.postEditService);
 router.get('/:id/detail/delete', Controller.getDeleteService);
+
 router.get('/:id/add/gallery', Controller.getaddGalery);
 router.post('/:id/add/gallery', upload.single('gallery'), Controller.postGalery);
 // =======
