@@ -45,7 +45,11 @@ class UserController{
             if(isValidPass){
               req.session.userId = data.id
               req.session.role = data.role
+<<<<<<< HEAD
               return res.redirect(`/users/${data.id}/detail`)
+=======
+              return res.redirect('/services')
+>>>>>>> dd03c5f41841ced516bce34ebcee89d66952e0dc
             } else {
               let errors = "invalid password"
               return res.redirect(`/?error=${errors}`)
