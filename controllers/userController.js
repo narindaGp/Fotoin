@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 
 class UserController{
   static getRegister(req, res){
-    res.render('register')
+    let {error} = req.query
+    res.render('register', {error})
   }
   
   static postRegister(req, res){
@@ -16,7 +17,10 @@ class UserController{
       if(err.name == 'SequelizeValidationError'){
         let word = ''
         word = err.errors.map(el => el.message)
-        res.redirect(`/register?${word.join(',')}`)
+        res.redirect(`/register?error=${word.join(',')}`)
+      } else if(err.name == 'SequelizeUniqueConstraintError'){
+        let word = 'email is used'
+        res.redirect(`/register?error=${word}`)
       } else {
         res.send(err)
       }
@@ -41,7 +45,7 @@ class UserController{
             if(isValidPass){
               req.session.userId = data.id
               req.session.role = data.role
-              return res.redirect(`/users/${data.id}`)
+              return res.redirect(`/users/${data.id}/detail`)
             } else {
               let errors = "invalid password"
               return res.redirect(`/?error=${errors}`)

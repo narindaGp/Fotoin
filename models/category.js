@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Category.belongsTo(models.Service)
     }
   }
   Category.init({
     name: DataTypes.STRING,
-    alternate: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Category',

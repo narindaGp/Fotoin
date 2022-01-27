@@ -1,24 +1,22 @@
-const { User, Service, Detail } = require('../models')
+const { User, Service, Detail, Category, Galery } = require('../models')
 
 class Controller {
   static showService(req, res) {
     Service.findAll()
       .then(data => {
-        // console.log(data)
         res.render('service', { data })
       })
       .catch(err => {
-        // console.log(err)
         res.send(err)
       })
   }
 
 
-  static getBooking(req, res) {
+  static getDetail(req, res) {
     let { id } = req.params
     Service.findByPk(+id)
       .then(data => {
-        res.render('booking', { data })
+        res.render('detail', { data })
       })
       .catch(err => {
         res.send(err)
@@ -77,10 +75,15 @@ class Controller {
 
   static getUserDetail(req, res) {
     const { id } = req.params
-    User.findByPk(id)
+    User.findByPk(id,{
+      include:{
+        model: Service
+      }
+    })
       .then(user => {
         // res.send(user)
-        res.render('usersDetailNar', { user, services: [] })
+        console.log(user.Services)
+        res.render('usersDetailNar', { user, services: user.Services })
       })
       .catch(err => {
         res.send(err)
@@ -102,13 +105,16 @@ class Controller {
 
   static postAddService(req, res){
     const {id} = req.params
-    const { name, description, price, imageUrl } = req.body
-    const value = { name, description, price, imageUrl, UserId: id }
+    const { name, description, price, imageUrl, CategoryId } = req.body
+    const value = { name, description, price, imageUrl, CategoryId, UserId: id }
     console.log(value)
-    // Service.create(value)
-    //   .then(service=>{
-    //     res.redirect{`/user/${id}/detail`}
-    //   })
+    Service.create(value)
+      .then(service=>{
+        res.redirect(`/users/${id}/detail`)
+      })
+      .catch(err=>{
+        res.send(err)
+      })
   }
 }
 
