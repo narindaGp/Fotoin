@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,8 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body>
+<body> -->
   <%- include('./partials/top.ejs') %>
+  <form class="d-flex input-group w-auto" action="/services" method="get">
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Search Service Name"
+      aria-label="Search"
+      name="search"
+    />
+    <button
+      class="btn btn-outline-primary"
+      type="submit"
+      data-mdb-ripple-color="dark"
+    >
+      Search
+    </button>
+  </form>
   <table border="1">
     <tr>
       <th>Nama</th>
