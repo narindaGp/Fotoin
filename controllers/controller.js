@@ -134,6 +134,7 @@ class Controller {
     
     Detail.create(valueDetail)
       .then(detail=>{
+        res.send('')
       })
       .catch(err=>{
         res.send(err)
