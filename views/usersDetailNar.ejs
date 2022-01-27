@@ -29,8 +29,8 @@
           <td><%= el.price %></td>
           <td>
             <a href="/users/<%= el.id %>/detail" class="btn btn-secondary">detail</a>
-            <!-- <a href="/users/<%= el.id %>/delete" class="btn btn-danger">Delete</a> -->
             <a href="/users/<%= el.id %>/edit" class="btn btn-secondary">edit</a>
+            <a href="/users/<%= el.id %>/detail/delete" class="btn btn-danger">Delete</a>
           </td>
         </tr>
       <% }) %>

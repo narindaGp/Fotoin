@@ -15,7 +15,7 @@
   <form action="/services/<%= user.id %>/add" method="post">
     <div class="container mt-5">
       <!-- <div class="row"> -->
-        <form class="row" action="/users/<%= user.id %>/addService" method="post">
+        <form class="row" action="/users/<%= user.id %>/add" method="post">
   
           <div class="col-10">
             <label for="" class="form-label">Name</label>
@@ -56,5 +56,9 @@
     </div>
   </form>
   
+  <h3 class="m-3">Add gallery</h3>
+  <form action="/profile" method="post" enctype="multipart/form-data">
+    <input type="file" name="gallery" />
+  </form>
 </body>
 </html>
