@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     requirement: DataTypes.TEXT,
     availibility: DataTypes.STRING,
     timeOfContract: DataTypes.STRING,
-    ServiceId: DataTypes.STRING,
+    ServiceId: DataTypes.INTEGER
+  
   }, {
     sequelize,
     modelName: 'Detail',
