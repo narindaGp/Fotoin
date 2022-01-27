@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
       return new Promise((resolve, reject)=>{
-        Service.findAll({
+          Service.findAll({
           where,
           include: ['Category']
         })
@@ -40,21 +40,21 @@ module.exports = (sequelize, DataTypes) => {
       }) 
       
     }
-    static serviceDetail(id){
+    // static serviceDetail(id){
      
-      return new Promise((resolve, reject)=>{
-        Service.findByPk(+id, {
-          include: ['Detail', 'Category']
-        })
-          .then(services=>{
-            resolve(services)
-          })
-          .catch(err=>{
-            reject(err)
-          })
-      }) 
+    //   return new Promise((resolve, reject)=>{
+    //     Service.findByPk(+id, {
+    //       include: ['Detail', 'Category']
+    //     })
+    //       .then(services=>{
+    //         resolve(services)
+    //       })
+    //       .catch(err=>{
+    //         reject(err)
+    //       })
+    //   }) 
       
-    }
+    // }
 
     static associate(models) {
       // define association here

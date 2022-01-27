@@ -19,13 +19,22 @@ class Controller {
 
 
   static getDetail(req, res) {
+    // console.log('test')
     let { id } = req.params
     let temp
-    Service.serviceDetail(+id)
-
+    Service.findByPk(+id, {
+      include:[Detail]
+    })
       .then(data => {
-        console.log(data)
-        res.render('detail', { data , serviceAvailable})
+        temp = data
+        return Detail.findByPk(data.Detail.id,{
+          include:[Gallery]
+        })
+      })
+      .then(data => {
+        // console.log(temp.name)
+        // console.log(data.status)
+        res.render('detail', { data, temp, serviceAvailable })
       })
       .catch(err => {
         console.log(err)
