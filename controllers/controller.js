@@ -2,7 +2,7 @@ const { User, Service, Detail, Category, Gallery } = require('../models')
 
 class Controller {
   static showService(req, res) {
-<
+
     let {search} = req.query
     if(search){
       Service.search(search)
