@@ -16,9 +16,31 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Detail.init({
-    status: DataTypes.BOOLEAN,
-    requirement: DataTypes.TEXT,
-    timeOfContract: DataTypes.STRING,
+    status: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+        notNull: {
+          msg:`status is required`
+        }
+      }
+    },
+    requirement: {
+      type: DataTypes.TEXT,
+      validate: {
+        notEmpty: {
+          msg:`requirement is required`
+        }
+      }
+    },
+    timeOfContract: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          msg:`Time of Contract is required`
+        }
+      }
+    },
     ServiceId: DataTypes.INTEGER
   }, {
     sequelize,

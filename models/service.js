@@ -36,12 +36,48 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Service.init({
-    name: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    price: DataTypes.INTEGER,
-    imageUrl: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg:`name is required`
+        }
+      }
+    },
+    description: {
+      type: DataTypes.TEXT,
+      validate: {
+        notEmpty: {
+          msg:`description is required`
+        }
+      }
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          msg:`price is required`
+        }
+      }
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg:`image is required`
+        }
+      }
+    },
     UserId: DataTypes.INTEGER,
-    CategoryId: DataTypes.INTEGER,
+    CategoryId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      validate: {
+        notNull: {
+          msg:`category is required`
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'Service',
