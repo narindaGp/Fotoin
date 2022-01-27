@@ -7,6 +7,9 @@
   <title>Document</title>
 </head>
 <body>
+  <% if(error) { %>
+    <p style="color: red;"><%= error %></p>
+  <% } %>
   <form action="/" method="post">
     <label>Email</label> <br>
     <input type="email" name="email"><br><br>

@@ -2,47 +2,6 @@ const { User, Service, Detail } = require('../models')
 const bcrypt = require('bcryptjs');
 
 
-class Controller{
-  static getUsers(req, res){
-    User.findAll()
-      .then(users=>{
-        // res.send(users)
-        res.render('usersNar', { users })
-      })
-      .catch(err=>{
-        console.log(err)
-        res.send(err)
-      })
-  }
-
-  static getUserDetail(req, res){
-    const {id} = req.params
-    User.findByPk(id)
-      .then(user=>{
-        // res.send(user)
-        res.render('usersDetailNar', {user, services: []})
-      })
-      .catch(err=>{
-        res.send(err)
-      })
-  }
-
-  static getAddService(req, res){
-    const {id} = req.params
-    User.findByPk(id)
-      .then(user=>{
-        // res.send(user)
-        res.render('userAddSvcNar', {user})
-      })
-      .catch(err=>{
-        res.send(err)
-      })
-
-  }
-}
-
-
-
 class UserController{
   static getRegister(req, res){
     res.render('register')
@@ -53,6 +12,7 @@ class UserController{
     User.create({username, email, password, role})
     .then(_=> res.redirect('/'))
     .catch(err => {
+      // res.send(err)
       if(err.name == 'SequelizeValidationError'){
         let word = ''
         word = err.errors.map(el => el.message)
@@ -64,7 +24,9 @@ class UserController{
   }
   
   static getLogin(req, res){ 
-    res.render('login')
+    // if(req.query)
+    let {error} = req.query
+    res.render('login', {error})
   }
   
   static postLogin(req, res){
@@ -73,25 +35,39 @@ class UserController{
           where: {email}
         })
         .then(data => {
+          
           if(data){
             const isValidPass = bcrypt.compareSync(password, data.password)
             if(isValidPass){
+              req.session.userId = data.id
+              req.session.role = data.role
               return res.redirect('/service')
             } else {
               let errors = "invalid password"
-              return res.redirect(`/?${errors}`)
+              return res.redirect(`/?error=${errors}`)
             }
           } else {
-            let errors = "invalid username"
-            return res.redirect(`/?${errors}`)
+            let errors = "invalid password/username"
+            return res.redirect(`/?error=${errors}`)
           }
         })
         .catch(err => {
+          console.log(err)
           res.send(err)
         })
+  }
+
+  static getLogout(req, res){
+    req.session.destroy(err => {
+      if(err) res.send(err)
+      else {
+        res.redirect('/')
       }
+    })
+  }
+  
 }
 
 module.exports = UserController
-module.exports = Controller
+// module.exports = Controller
 
