@@ -12,15 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Detail.belongsTo(models.Service)
+      Detail.hasMany(models.Gallery)
     }
   }
   Detail.init({
     status: DataTypes.BOOLEAN,
     requirement: DataTypes.TEXT,
-    availibility: DataTypes.STRING,
     timeOfContract: DataTypes.STRING,
     ServiceId: DataTypes.INTEGER
-  
   }, {
     sequelize,
     modelName: 'Detail',
