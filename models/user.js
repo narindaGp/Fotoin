@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 let bcrypt = require('bcryptjs');
-
+const { Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -15,28 +15,24 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Service)
     }
-    static getUsersByRole(role) {
-      let where = {}
-      if (role){
-        where ={
-          role: role
-        }
-      }
-      return new Promise((resolve, reject)=>{
+    
+    // static getUsersByRole(word) {
+    //   console.log('test')
+    //   let where = {}
+    //   if (word){
+    //     where = {
+    //       role: {
+    //         [Op.iLike]:`%${word}$`
+    //       }
+    //     }
+    //   }
+    //   return  User.findAll({
+    //             where,
+    //             order: [['name', 'ASC']]
+    //           })
+    // }
 
-        User.findAll({
-          where,
-          order: [['name', 'ASC']]
-        })
-          .then(users => {
-            resolve(users)
-          })
-          .catch(err=>{
-            reject(err)
-          })
-      }) 
-
-    }
+    
   }
   User.init({
     username: {

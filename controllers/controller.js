@@ -47,19 +47,20 @@ class Controller {
       })
   }
 
-  static getUsers(req, res){
-    const { role } = req.query
-
-    User.getUsersByRole(role)
-      .then(users=>{
-        // res.send(users)
-        res.render('usersNar', { users })
-      })
-      .catch(err=>{
-        console.log(err)
-        res.send(err)
-      })
-  }
+  // static getUsers(req, res){
+  //   const { search } = req.query
+  //   console.log(search)
+  //   User.getUsersByRole(search)
+  //     .then(users=>{
+  //       // res.send(users)
+  //       console.log(users)
+  //       res.render('usersNar', { users })
+  //     })
+  //     .catch(err=>{
+  //       // console.log(err)
+  //       res.send(err)
+  //     })
+  // }
 
   static getUserDetail(req, res){
     const {id} = req.params
@@ -106,7 +107,7 @@ class Controller {
     })
       .then(user => {
         // res.send(user)
-        console.log(user.Services)
+        // console.log(user.Services)
         res.render('usersDetailNar', { user, services: user.Services })
       })
       .catch(err => {
@@ -131,9 +132,16 @@ class Controller {
     const {id} = req.params
     const { name, description, price, imageUrl, CategoryId , status, requirement, timeOfContract } = req.body
     const valueService = { name, description, price, imageUrl, CategoryId, UserId: id }
-    const valueDetail = { status, requirement, timeOfContract }
-    console.log(valueService)
     Service.create(valueService)
+      .then(data => {
+        return Service.findAll({
+          order:[['id','desc']],
+          limit: '1'
+        })
+      })
+      .then(data => {
+        return Detail.create({status, requirement, timeOfContract, ServiceId: data[0].id})
+      })
       .then(service=>{
         res.redirect(`/users/${id}/detail`)
       })
@@ -141,13 +149,6 @@ class Controller {
         res.send(err)
       })
     
-    Detail.create(valueDetail)
-      .then(detail=>{
-        res.send('')
-      })
-      .catch(err=>{
-        res.send(err)
-      })
   }
 }
 
