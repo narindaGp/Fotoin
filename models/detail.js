@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     availibility: DataTypes.STRING,
     timeOfContract: DataTypes.STRING,
     ServiceId: DataTypes.INTEGER
+  
   }, {
     sequelize,
     modelName: 'Detail',
