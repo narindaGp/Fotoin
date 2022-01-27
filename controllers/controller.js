@@ -6,7 +6,6 @@ class Controller {
         include:[Category]
       })
       .then(data => {
-        // console.log(data)
         res.render('service', { data })
       })
       .catch(err => {
@@ -52,17 +51,7 @@ class Controller {
       })
   }
 
-  static getUserDetail(req, res){
-    const {id} = req.params
-    User.findByPk(id)
-      .then(user=>{
-        // res.send(user)
-        res.render('usersDetailNar', {user, services: []})
-      })
-      .catch(err=>{
-        res.send(err)
-      })
-  }
+ 
 
   static getAddService(req, res){
     const {id} = req.params
@@ -122,9 +111,18 @@ class Controller {
     const {id} = req.params
     const { name, description, price, imageUrl, CategoryId , status, requirement, timeOfContract } = req.body
     const valueService = { name, description, price, imageUrl, CategoryId, UserId: id }
-    const valueDetail = { status, requirement, timeOfContract }
+    // const valueDetail = { status, requirement, timeOfContract,  }
     console.log(valueService)
     Service.create(valueService)
+      .then(service=>{
+        return Service.findAll({
+          order:[['id', 'desc']],
+          limit: '1'
+        })
+       })
+      .then(service=>{
+        return Detail.create({ status, requirement, timeOfContract, ServiceId: service.id })
+      })
       .then(service=>{
         res.redirect(`/users/${id}/detail`)
       })
@@ -132,9 +130,27 @@ class Controller {
         res.send(err)
       })
     
-    Detail.create(valueDetail)
-      .then(detail=>{
-        res.send('')
+    // Detail.create(valueDetail)
+    //   .then(detail=>{
+    //     res.send('')
+    //   })
+    //   .catch(err=>{
+    //     res.send(err)
+    //   })
+  }
+
+  static getAddDetail(req, res){
+    res.render('userAddSvcNar')
+  }
+
+  static getServiceDetail(req, res){
+    const {ServiceId, DetailId} = req.params
+    User.findByPk(ServiceId,{
+      include: Detail
+    })
+      .then(service=>{
+        res.send(service)
+        // res.render('usersDetailNar', {user, services: []})
       })
       .catch(err=>{
         res.send(err)

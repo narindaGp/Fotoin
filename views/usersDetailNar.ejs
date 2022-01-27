@@ -6,7 +6,7 @@
   <p><span>E-mail:</span><%= user.email %></p>
   <p><span>Role:</span><%= user.role %></p>
   <a href="/users/<%= user.id %>/edit" class="btn btn-secondary">edit</a>
-  <a href="/users/<%= user.id %>/addService" class="btn btn-primary">add service</a>
+  <a href="/users/<%= user.id %>/add" class="btn btn-primary">add service</a>
   <hr>
   <h2>service list</h2>
   <hr>
@@ -27,6 +27,7 @@
           <td><%= el.description %></td>
           <td><%= el.price %></td>
           <td>
+            <a href="/users/<%= el.id %>/detail/add" class="btn btn-secondary">add detail</a>
             <a href="/users/<%= el.id %>/detail" class="btn btn-secondary">detail</a>
             <a href="/users/<%= el.id %>/delete" class="btn btn-danger">Delete</a>
           </td>
