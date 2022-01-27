@@ -2,7 +2,7 @@ const { User, Service, Detail, Category, Gallery } = require('../models')
 
 class Controller {
   static showService(req, res) {
-
+<
     let {search} = req.query
     if(search){
       Service.search(search)
@@ -141,13 +141,6 @@ class Controller {
         res.send(err)
       })
     
-    // Detail.create(valueDetail)
-    //   .then(detail=>{
-    //     res.send('')
-    //   })
-    //   .catch(err=>{
-    //     res.send(err)
-    //   })
   }
 
   static getAddDetail(req, res){
