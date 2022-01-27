@@ -10,8 +10,17 @@ halaman
 /user/:id/service -> nampilin semua service yang dibuat user
 
 /user/:id ->profile user untuk halaman nambah service, delete edit
-/user/:id/add -> nambah service
+/user/:id/add -> nambah service jadi /+ addService 
 /user/:id/delete -> delete service
+
+tambahan 
+
+/signin -> daftar
+/login -> masuk
+/signout -> keluar
+/user -> daftar user (done)
+/user/:id/delete
+
 
 /user/:id/edit -> edit service
 <!-- /service/:id/detail/:userId -->

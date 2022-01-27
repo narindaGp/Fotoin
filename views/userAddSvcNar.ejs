@@ -1,0 +1,39 @@
+<%- include('./partials/top.ejs') %>
+
+  <h1 class="m-5 text-center">Users Detail</h1>
+  <hr>
+  <p><span>Username:</span> <%= user.username %> </p>
+  <p><span>E-mail:</span><%= user.email %></p>
+  <p><span>Role:</span><%= user.role %></p>
+  <a href="/users/<%= user.id %>/edit" class="btn btn-secondary">edit</a>
+  <a href="/users/<%= user.id %>/addService" class="btn btn-primary">add service</a>
+  <hr>
+  <h2>service list</h2>
+  <hr>
+  
+  <form action="/users/<%= user.id %>/addService" method="post">
+    <div class="container mt-5">
+      <!-- <div class="row"> -->
+        <form class="row" action="/users/<%= user.id %>/addService" method="post">
+  
+          <div class="col-8">
+            <label for="" class="form-label">Name</label>
+            <input type="text" class="form-control" name="name">
+            <label for="" class="form-label">Description</label>
+            <textarea name="description" class="form-control" id="" cols="30" rows="10"></textarea>
+            <label for="" class="form-label">price</label>
+            <input type="number" class="form-control" name="price">
+            <label for="" class="form-label">Image URL</label>
+            <input type="text" class="form-control" name="imageUrl">
+          </div>
+         
+            
+            <button type="submit" class="btn btn-primary m-5">Add Service</button>
+          </div>
+        </form>
+      <!-- </div>   -->
+    </div>
+  </form>
+  
+</body>
+</html>
