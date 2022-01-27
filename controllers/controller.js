@@ -120,12 +120,21 @@ class Controller {
 
   static postAddService(req, res){
     const {id} = req.params
-    const { name, description, price, imageUrl, CategoryId } = req.body
-    const value = { name, description, price, imageUrl, CategoryId, UserId: id }
-    console.log(value)
-    Service.create(value)
+    const { name, description, price, imageUrl, CategoryId , status, requirement, timeOfContract } = req.body
+    const valueService = { name, description, price, imageUrl, CategoryId, UserId: id }
+    const valueDetail = { status, requirement, timeOfContract }
+    console.log(valueService)
+    Service.create(valueService)
       .then(service=>{
         res.redirect(`/users/${id}/detail`)
+      })
+      .catch(err=>{
+        res.send(err)
+      })
+    
+    Detail.create(valueDetail)
+      .then(detail=>{
+        res.send('')
       })
       .catch(err=>{
         res.send(err)
