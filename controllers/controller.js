@@ -150,6 +150,51 @@ class Controller {
       })
     
   }
+
+  static getEditService(req, res){
+    let {id} = req.params
+    Service.findByPk(+id, {
+              include:[Detail]
+            })
+            .then(data => {
+              // console.log(data.name)
+              res.render('edit', {data})
+            })
+            .catch(err => {
+              res.send(err)
+            })
+  }
+
+  static postEditService(req, res){
+    let {id} = req.params
+    let {name, description, price, imageUrl, CategoryId, status, requirement, timeOfContract} = req.body
+    const valueService = { name, description, price, imageUrl, CategoryId }
+    Service.update(valueService, {
+        where: {
+          id: +id
+        }
+      })
+      .then(data => {
+        return Service.findAll({
+          order:[['updatedAt','desc']],
+          limit: '1',
+          include:[Detail]
+        })
+      })
+      .then(data => {
+        return Detail.update({status, requirement, timeOfContract}, {
+          where: {
+            id: data[0].Detail.id
+          }
+        })
+      })
+      .then(service=>{
+        res.redirect(`/users`)
+      })
+      .catch(err=>{
+        res.send(err)
+      })
+  }
 }
 
 module.exports = Controller
