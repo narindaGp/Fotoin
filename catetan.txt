@@ -68,9 +68,11 @@ npx sequelize db:migrate
 # seeding
 
 npx sequelize-cli seed:generate --name <nama_seed>
-npx sequelize-cli seed:generate --name seed-user
+npx sequelize-cli seed:generate --name seed-Categories
 
 contoh seeding:
+
+npx sequelize-cli db:seed --seed 20220127072145-seed-Categories.js
 
 npx sequelize-cli db:seed:all
 

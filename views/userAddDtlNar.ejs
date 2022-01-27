@@ -6,9 +6,9 @@
   <p><span>E-mail:</span><%= user.email %></p>
   <p><span>Role:</span><%= user.role %></p>
   <a href="/users/<%= user.id %>/edit" class="btn btn-secondary">edit</a>
-  <a href="/users/<%= user.id %>/add" class="btn btn-primary">add service</a>
+  <a href="/users/<%= user.id %>/addService" class="btn btn-primary">add service</a>
   <hr>
-  <h2>service list</h2>
+  <h2>add service detail</h2>
   <hr>
   
   <form action="/services/<%= user.id %>/add" method="post">
@@ -17,22 +17,7 @@
         <form class="row" action="/users/<%= user.id %>/addService" method="post">
   
           <div class="col-10">
-            <label for="" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name">
-            <label for="" class="form-label">Description</label>
-            <textarea name="description" class="form-control" id="" cols="30" rows="10"></textarea>
-            <label for="" class="form-label">price</label>
-            <input type="number" class="form-control" name="price">
-            <label for="" class="form-label">Image URL</label>
-            <input type="text" class="form-control" name="imageUrl">
-            <label for="" class="form-Label">Category:</label>
-            <select name="CategoryId" class="form-select" id="">
-              <option value="" selected disabled>-- Select --</option>
-              <option value="1">Photography</option>
-              <option value="2">Videography</option>
-              <option value="3">Illustrator</option>
-            </select>
-            
+           
             <hr>
             <h2>detail</h2>
             <hr>
@@ -45,6 +30,7 @@
             <textarea name="requirement" class="form-control" id="" cols="30" rows="10"></textarea>
             <label for="" class="form-label">Estimate project duration</label>
             <input type="number" class="form-control" name="timeOfContract">
+            
           </div>
          
             
