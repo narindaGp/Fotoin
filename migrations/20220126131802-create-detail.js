@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.TEXT
       },
       timeOfContract: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
