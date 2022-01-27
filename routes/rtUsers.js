@@ -1,6 +1,8 @@
 "use strict";
 const express = require('express')
 const Controller = require('../controllers/controller')
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 const router = express.Router();
 
 router.get('/', Controller.getUsers);
@@ -10,8 +12,9 @@ router.get('/:id/addService', Controller.getAddService);
 router.get('/:id/edit', Controller.getEditService);
 router.post('/:id/edit', Controller.postEditService);
 router.get('/:id/detail/delete', Controller.getDeleteService);
-router.get('/:id/add/galery', Controller.getEditService);
-// router.get(`/:id/services/detail`)
+
+router.get('/:id/add/gallery', Controller.getaddGalery);
+router.post('/:id/add/gallery', upload.single('gallery'), Controller.postGalery);
 // =======
 // router.get('/:id/detail/add', Controller.getAddDetail);
 // // router.post('/:id/detail/add', Controller.postAddDetail);

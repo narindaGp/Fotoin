@@ -41,7 +41,6 @@ module.exports = (sequelize, DataTypes) => {
       
     }
     // static serviceDetail(id){
-     
     //   return new Promise((resolve, reject)=>{
     //     Service.findByPk(+id, {
     //       include: ['Detail', 'Category']
@@ -53,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     //         reject(err)
     //       })
     //   }) 
+
       
     // }
 
