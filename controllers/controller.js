@@ -39,7 +39,9 @@ class Controller {
   }
 
   static getUsers(req, res){
-    User.findAll()
+    const { role } = req.query
+
+    User.getUsersByRole(role)
       .then(users=>{
         // res.send(users)
         res.render('usersNar', { users })
@@ -88,10 +90,15 @@ class Controller {
 
   static getUserDetail(req, res) {
     const { id } = req.params
-    User.findByPk(id)
+    User.findByPk(id,{
+      include:{
+        model: Service
+      }
+    })
       .then(user => {
         // res.send(user)
-        res.render('usersDetailNar', { user, services: [] })
+        console.log(user.Services)
+        res.render('usersDetailNar', { user, services: user.Services })
       })
       .catch(err => {
         res.send(err)
@@ -113,13 +120,16 @@ class Controller {
 
   static postAddService(req, res){
     const {id} = req.params
-    const { name, description, price, imageUrl } = req.body
-    const value = { name, description, price, imageUrl, UserId: id }
+    const { name, description, price, imageUrl, CategoryId } = req.body
+    const value = { name, description, price, imageUrl, CategoryId, UserId: id }
     console.log(value)
-    // Service.create(value)
-    //   .then(service=>{
-    //     res.redirect{`/user/${id}/detail`}
-    //   })
+    Service.create(value)
+      .then(service=>{
+        res.redirect(`/users/${id}/detail`)
+      })
+      .catch(err=>{
+        res.send(err)
+      })
   }
 }
 
