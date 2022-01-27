@@ -14,9 +14,6 @@ module.exports = {
       requirement: {
         type: Sequelize.TEXT
       },
-      availibility: {
-        type: Sequelize.STRING
-      },
       timeOfContract: {
         type: Sequelize.STRING
       },

@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Service.belongsTo(models.User)
       Service.hasOne(models.Detail)
+      Service.hasOne(models.Category)
     }
   }
   Service.init({
@@ -28,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER,
     imageUrl: DataTypes.STRING,
     UserId: DataTypes.INTEGER,
+    CategoryId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Service',

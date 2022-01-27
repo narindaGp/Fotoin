@@ -1,24 +1,22 @@
-const { User, Service, Detail } = require('../models')
+const { User, Service, Detail, Category, Galery } = require('../models')
 
 class Controller {
   static showService(req, res) {
     Service.findAll()
       .then(data => {
-        // console.log(data)
         res.render('service', { data })
       })
       .catch(err => {
-        // console.log(err)
         res.send(err)
       })
   }
 
 
-  static getBooking(req, res) {
+  static getDetail(req, res) {
     let { id } = req.params
     Service.findByPk(+id)
       .then(data => {
-        res.render('booking', { data })
+        res.render('detail', { data })
       })
       .catch(err => {
         res.send(err)

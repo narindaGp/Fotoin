@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 
 class UserController{
   static getRegister(req, res){
-    res.render('register')
+    let {error} = req.query
+    res.render('register', {error})
   }
   
   static postRegister(req, res){
@@ -16,7 +17,10 @@ class UserController{
       if(err.name == 'SequelizeValidationError'){
         let word = ''
         word = err.errors.map(el => el.message)
-        res.redirect(`/register?${word.join(',')}`)
+        res.redirect(`/register?error=${word.join(',')}`)
+      } else if(err.name == 'SequelizeUniqueConstraintError'){
+        let word = 'email is used'
+        res.redirect(`/register?error=${word}`)
       } else {
         res.send(err)
       }
