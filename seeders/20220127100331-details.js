@@ -16,7 +16,7 @@ module.exports = {
        element.createdAt = new Date()
        element.updatedAt = new Date()
      });
-     return queryInterface.bulkInsert('Galleries', data ,{})
+     return queryInterface.bulkInsert('Details', data ,{})
   },
 
   down: (queryInterface, Sequelize) => {

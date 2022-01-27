@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    get formatPrice(){
+    formatPrice(){
       const format = this.price.toString().split('').reverse().join('');
       const convert = format.match(/\d{1,3}/g);
       const rupiah = 'Rp. ' + convert.join('.').split('').reverse().join('') + ',00'
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Service.belongsTo(models.User)
       Service.hasOne(models.Detail)
-      Service.hasOne(models.Category)
+      Service.belongsTo(models.Category)
     }
   }
   Service.init({

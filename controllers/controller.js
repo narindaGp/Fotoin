@@ -1,24 +1,39 @@
-const { User, Service, Detail, Category, Galery } = require('../models')
+const { User, Service, Detail, Category, Gallery } = require('../models')
 
 class Controller {
   static showService(req, res) {
-    Service.findAll()
+    Service.findAll({
+        include:[Category]
+      })
       .then(data => {
+        // console.log(data)
         res.render('service', { data })
       })
       .catch(err => {
+        // console.log(err)
         res.send(err)
       })
   }
 
 
   static getDetail(req, res) {
+    // console.log('test')
     let { id } = req.params
-    Service.findByPk(+id)
+    let temp
+    Service.findByPk(+id, {
+      include:[Detail]
+    })
       .then(data => {
-        res.render('detail', { data })
+        temp = data
+        return Detail.findByPk(data.Detail.id,{
+          include:[Gallery]
+        })
+      })
+      .then(data => {
+        res.render('detail', { data, temp })
       })
       .catch(err => {
+        console.log(err)
         res.send(err)
       })
   }
