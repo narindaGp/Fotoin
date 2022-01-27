@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
      
       return new Promise((resolve, reject)=>{
         Service.findByPk(+id, {
-          include: ['Detail', 'Category']
+          include: ['Detail', 'Category', 'Gallery']
         })
           .then(services=>{
             resolve(services)

@@ -1,6 +1,9 @@
 const { User, Service, Detail, Category, Gallery } = require('../models')
 const serviceAvailable = require('../helpers')
 
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
+
 class Controller {
   static showService(req, res) {
 
@@ -20,7 +23,6 @@ class Controller {
 
   static getDetail(req, res) {
     let { id } = req.params
-    let temp
     Service.serviceDetail(+id)
 
       .then(data => {
@@ -219,6 +221,36 @@ class Controller {
     })
       .then(data=>{
         res.redirect('/users')
+      })
+      .catch(err => {
+        res.send(err)
+      })
+  }
+
+  static getaddGalery(req, res){
+    const {id} = req.params 
+    Service.findByPk(id)
+      .then(service=>{
+        res.render('userAddGallery', {service})
+      })
+      .catch(err => {
+        console.log(err);
+        res.send(err)
+      })
+  }
+
+  static postGalery(req, res){
+    const { id } = req.params
+    const galery = upload.single('gallery')
+    const { gallery } = req.file
+    const { alternate } = req.body
+    // res.send(gallery, alternate)
+    console.log(req.file, 'galerryy ===', gallery, galery);
+    const value = { id, name: gallery, alternate }
+    Gallery.create(value)
+      .then(gallery=>{
+        console.log(gallery);
+        res.redirect(`/users/${id}/add/gallery`)
       })
       .catch(err => {
         res.send(err)
