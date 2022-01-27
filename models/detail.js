@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     timeOfContract: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       validate: {
         notEmpty: {
           msg:`Time of Contract is required`

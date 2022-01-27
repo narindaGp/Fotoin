@@ -77,7 +77,7 @@ module.exports = (sequelize, DataTypes) => {
           msg:`category is required`
         }
       }
-    },
+    }
   }, {
     sequelize,
     modelName: 'Service',
