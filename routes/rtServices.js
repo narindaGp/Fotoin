@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.get('/', Controller.showService);
-router.get('/details', Controller.getDetail);
-router.post('/:id/add', Controller.postAddService);
+router.get('/:id', Controller.getDetail);
+// router.get('/details', Controller.getDetail);
 
 module.exports = router;
