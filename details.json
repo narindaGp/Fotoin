@@ -1,5 +1,3 @@
 [{"status":false,"requirement":"lacus morbi sem mauris laoreet","timeOfContract":5,"ServiceId":1},
 {"status":false,"requirement":"et ultrices posuere cubilia curae mauris viverra","timeOfContract":5,"ServiceId":2},
-{"status":false,"requirement":"lectus vestibulum quam sapien varius ut blandit","timeOfContract":1,"ServiceId":3},
-{"status":false,"requirement":"maecenas ut massa quis augue luctus","timeOfContract":3,"ServiceId":4},
-{"status":false,"requirement":"in quam fringilla rhoncus mauris enim","timeOfContract":5,"ServiceId":5}]
+{"status":false,"requirement":"lectus vestibulum quam sapien varius ut blandit","timeOfContract":1,"ServiceId":3}]
