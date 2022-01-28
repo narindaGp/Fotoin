@@ -3,7 +3,7 @@ const serviceAvailable = require('../helpers')
 const multer = require('multer')
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/Images')
+    cb(null, './Images')
   },
   filename: function (req, file, cb) {
     const mimeExtension = {
@@ -59,7 +59,6 @@ class Controller {
       })
       .then(data => {
         // console.log(temp.name)
-        // console.log(data.status)
         res.render('detail', { data, temp, serviceAvailable })
       })
       .catch(err => {
@@ -103,8 +102,6 @@ class Controller {
       }
     })
       .then(user => {
-        // res.send(user)
-        // console.log(user.Services)
         res.render('usersDetailNar', { user, services: user.Services })
       })
       .catch(err => {
@@ -264,17 +261,20 @@ class Controller {
   static postGalery(req, res){
     const { id } = req.params
     const { alternate } = req.body
-    // res.send(gallery, alternate)
-    // console.log(req.file, 'galerryy ===', gallery, galery);
-    const value = { id, name: req.file.path, alternate }
-    Gallery.create(value)
-      .then(gallery=>{
-        console.log(gallery);
-        res.redirect(`/users/${id}/add/gallery`)
-      })
-      .catch(err => {
-        res.send(err)
-      })
+    let temp
+    Service.findByPk(+id, {
+              include: [Detail, User]
+            })
+            .then(data => {
+              temp = data
+              return Gallery.create({name: req.file.path, alternate, DetailId: data.Detail.id})
+            })
+            .then(_=>{
+              res.redirect(`/users/${temp.User.id}/detail`)
+            })
+            .catch(err =>{
+              res.send(err)
+            })
   }
 }
 

@@ -9,6 +9,7 @@
   <p>property thats avaliable: <%= data.requirement %></p>
   <p>another image exmaple: </p>
   <% data.Galleries.forEach(el => { %>
+    <p><%= el.name %></p>
     <img src="<%= el.name %>" alt="<%= el.alternate %>">
   <% }) %>
 
