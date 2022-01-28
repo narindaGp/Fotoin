@@ -1,8 +1,31 @@
 const { User, Service, Detail, Category, Gallery } = require('../models')
 const serviceAvailable = require('../helpers')
+const multer = require('multer')
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/Images')
+  },
+  filename: function (req, file, cb) {
+    const mimeExtension = {
+      'image/jpeg':'.jpeg',
+      'image/jpg':'.jpg',
+      'image/png':'.png',
+      'image/gif':'.gif'
+    }
+    cb(null, file.fieldname + '-' + Date.now() + mimeExtension[file.mimetype])
+  }
+})
 
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ 
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/jpg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' ){
+      cb(null, true)
+    } else {
+      req.fileError = 'file is not valid'
+    }
+  }
+})
 
 class Controller {
   static showService(req, res) {
@@ -45,21 +68,7 @@ class Controller {
       })
   }
 
-  // static getUsers(req, res){
-  //   const { search } = req.query
-  //   console.log(search)
-  //   User.getUsersByRole(search)
-  //     .then(users=>{
-  //       // res.send(users)
-  //       console.log(users)
-  //       res.render('usersNar', { users })
-  //     })
-  //     .catch(err=>{
-  //       // console.log(err)
-  //       res.send(err)
-  //     })
-  // }
-
+  
 
 
   static getAddService(req, res) {
@@ -143,7 +152,15 @@ class Controller {
         res.redirect(`/users/${id}/detail`)
       })
       .catch(err => {
-        res.send(err)
+        if (err.name == 'SequelizeValidationError') {
+          let errors = []
+          err.errors.forEach(el => {
+            errors.push(el.message)
+          })
+          res.send(errors)
+        } else {
+          res.send(err)
+        }
       })
 
   }
@@ -190,22 +207,17 @@ class Controller {
         res.redirect(`/users`)
       })
       .catch(err => {
-        res.send(err)
+        if (err.name == 'SequelizeValidationError') {
+          let errors = []
+          err.errors.forEach(el => {
+            errors.push(el.message)
+          })
+          res.send(errors)
+        } else {
+          res.send(err)
+        }
       })
   }
-
-  //   static getAddDetail(req, res){
-  //     res.render('userAddSvcNar')
-  //   }
-
-  //   static getServiceDetail(req, res){
-  //     const {ServiceId, DetailId} = req.params
-  //     User.findByPk(ServiceId,{
-  //       include: Detail
-  //     })
-  //       .then(service=>{
-  //         res.send(service)
-  //         // res.render('usersDetailNar', {user, services: []})
 
   static deleteUser(req, res) {
     let { id } = req.params
@@ -251,12 +263,10 @@ class Controller {
 
   static postGalery(req, res){
     const { id } = req.params
-    const galery = upload.single('gallery')
-    const { gallery } = req.file
     const { alternate } = req.body
     // res.send(gallery, alternate)
-    console.log(req.file, 'galerryy ===', gallery, galery);
-    const value = { id, name: gallery, alternate }
+    // console.log(req.file, 'galerryy ===', gallery, galery);
+    const value = { id, name: req.file.path, alternate }
     Gallery.create(value)
       .then(gallery=>{
         console.log(gallery);
@@ -268,4 +278,7 @@ class Controller {
   }
 }
 
-module.exports = Controller
+module.exports = {
+  Controller,
+  upload
+}
