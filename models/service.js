@@ -85,6 +85,13 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           msg:`price is required`
+        },
+        isAvailable(value) {
+          if (value) {
+            if (value < 10000) {
+              throw new Error('minimum price is 10000')
+            }
+          }
         }
       }
     },

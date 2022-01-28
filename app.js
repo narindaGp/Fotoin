@@ -14,7 +14,7 @@ app.use(session({
   saveUninitialized: false,
   cookie: { secure: false, sameSite:false }
 }))
-
+app.use('/Images',express.static('./Images'))
 app.use('/', route)
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
